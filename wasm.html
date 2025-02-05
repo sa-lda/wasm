@@ -14,7 +14,7 @@
         // Load the WebAssembly module
         const loadWasm = async () => {
             const response = await fetch('example.txt');
-            const buffer = await response;//.arrayBuffer();
+            const buffer = await response.arrayBuffer();
             const module = await WebAssembly.instantiate(buffer);
             return module.instance.exports;
         };
