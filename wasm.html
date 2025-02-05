@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebAssembly Example</title>
+</head>
+<body>
+    <h1>WebAssembly Example</h1>
+    <button id="addButton">Add Numbers</button>
+    <p id="result"></p>
+
+    <script>
+        // Load the WebAssembly module
+        const loadWasm = async () => {
+            const response = await fetch('example.wasm');
+            const buffer = await response.arrayBuffer();
+            const module = await WebAssembly.instantiate(buffer);
+            return module.instance.exports;
+        };
+
+        loadWasm().then(exports => {
+/*             document.getElementById('addButton').onclick = () => {
+                const a = 5;
+                const b = 3;
+                const result = exports._add(a, b);
+                document.getElementById('result').innerText = `Result: ${result}`;
+            }; */
+
+            console.log('dsf')
+        }).catch(err => {
+            console.error('Error loading WebAssembly module:', err);
+        });
+    </script>
+</body>
+</html>
