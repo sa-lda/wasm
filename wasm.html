@@ -13,10 +13,18 @@
     <script>
         // Load the WebAssembly module
         const loadWasm = async () => {
-            const response = await fetch('example.txt');
-            const buffer = await response.arrayBuffer();
-            const module = await WebAssembly.instantiate(buffer);
-            return module.instance.exports;
+            fetch('example.wasm').then(response => {
+                if (!response.ok) {
+                  throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.text();
+              })
+              .then(data => {
+                console.log(data);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
         };
 
         loadWasm().then(exports => {
